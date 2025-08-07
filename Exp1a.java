@@ -1,43 +1,62 @@
 //URK24CS9009
 import java.util.*;
-class ATM{
-    public static void main(String args[]){
-        //Declaring Scanner object
-        Scanner s = new Scanner(System.in);
+class CinemaTicket {
+    public static void main(){
+    
+        Scanner sc = new Scanner(System.in);
+    
+        //Variable declaration
+        int age, booking_date;
+        float final_price,base_price=200;
+    
+        //Temporary initialization
+        int discount_age=0;
+        int discount_day=0;
+        float discount_amt,total_discount;
         
-        //Variable declaration and initialization
-        double deposit,withdraw,bank_balance=10000;
-        int choice;
+        System.out.println("URK24CS9009----------Cinema Ticket Booking----------URK24CS9009");
+    
+        //Inputing age
+        System.out.print("Enter age(0-200): ");
+        age=sc.nextInt();
+    
+        //Checking age limit
+        if(age>-1 && age<5) 
+                discount_age = 100;
+        else if(age>=5 && age <=18)
+                discount_age = 40;
+        else if(age>=19 && age<=60)
+                discount_age = 0;
+        else if(age>60 && age<=200)
+                discount_age = 30;
+        else {
+                System.out.println("Invalid Input. Exiting program");
+                System.exit(0);
+        }
+    
+        //Inputing day of booking
+        System.out.print("Enter 1 for weekdays and 2 for weekends: ");
+        booking_date=sc.nextInt();
+    
+        //Checking limits 
+        if(booking_date == 1)
+                discount_day = 10;
+        else if(booking_date == 2)
+                discount_day=0;
+        else {
+                System.out.println("Invalid Input. Exiting program.");
+                System.exit(0);
+        }
+    
+        //Discount and final amount calculation
+        total_discount = discount_day + discount_age - (discount_day*discount_age)/100;
+        discount_amt = base_price*(total_discount/100);
+        final_price = base_price - discount_amt;
+    
+        //Display price to be paid
+        System.out.println("Pay Rs "+final_price+".");
         
-        //infinite loop till user wants to end
-        do{
-        	System.out.println("\n\nURK24CS9009----------ATM----------URK24CS9009\n");
-            System.out.println("Enter 1 to check account balance\nEnter 2 to deposit money\nEnter 3 to withdraw money\nEnter 4 to exit:"); 
-            choice = s.nextInt();
-            switch(choice){
-            	case 1:
-            		System.out.println("\nCurrent bank balance: "+bank_balance);
-            		break;
-            	case 2:
-            		System.out.println("\nEnter the deposit amount:");
-            		deposit = s.nextDouble();
-            		bank_balance += deposit;
-            		break;
-            	case 3:
-            		System.out.println("\nEnter the withdrawal amount:");
-            		withdraw = s.nextDouble();
-            		bank_balance -= withdraw;
-            		if(bank_balance <= 2000) {
-            			System.out.println("\nWarning!!\nMinimum balance of 2000 need to be maintained.\nTranscation Failed.");
-            			bank_balance += withdraw;
-            		}
-            		break;
-            	case 4:
-            		System.out.println("\nByee");
-            		System.exit(0);
-            	default:
-            		System.out.println("Invalid Input");
-            }
-        }while(choice != 4);
+        //System.out.println(discount_amt);
+
     }
 }
